@@ -7,13 +7,16 @@ const Analytics = ({ shortId, onBack }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
+  // API base URL - use environment variable or fallback to localhost
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+
   useEffect(() => {
     fetchAnalytics()
   }, [shortId])
 
   const fetchAnalytics = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/url/analytics/${shortId}`)
+      const response = await axios.get(`${API_BASE_URL}/api/url/analytics/${shortId}`)
       setAnalytics(response.data)
     } catch (err) {
       setError('Failed to fetch analytics data')
@@ -90,7 +93,7 @@ const Analytics = ({ shortId, onBack }) => {
         <div className="short-url-info">
           <h3>Short URL</h3>
           <div className="url-display">
-            <span className="short-url">http://localhost:3000/{shortId}</span>
+            <span className="short-url">{API_BASE_URL}/{shortId}</span>
           </div>
         </div>
 

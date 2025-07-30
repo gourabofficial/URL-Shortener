@@ -12,6 +12,9 @@ const UrlShortener = () => {
   const [copied, setCopied] = useState(false)
   const [showAnalytics, setShowAnalytics] = useState(false)
 
+  // API base URL - use environment variable or fallback to localhost
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!originalUrl) return
@@ -20,13 +23,13 @@ const UrlShortener = () => {
     setError('')
 
     try {
-      const response = await axios.post('http://localhost:3000/api/url', {
+      const response = await axios.post(`${API_BASE_URL}/api/url`, {
         url: originalUrl
       })
 
       const newShortId = response.data.id
       setShortId(newShortId)
-      setShortUrl(`http://localhost:3000/${newShortId}`)
+      setShortUrl(`${API_BASE_URL}/${newShortId}`)
     } catch (err) {
       setError('Failed to shorten URL. Please try again.')
       console.error(err)

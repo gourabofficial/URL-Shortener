@@ -14,7 +14,10 @@ const PORT = process.env.PORT || 5000;
 
 // CORS configuration
 app.use(cors({
-  origin: "http://localhost:5173", // Vite dev server default port
+  origin: [
+    "http://localhost:5173", // Vite dev server for local development
+    "https://url-shortener-nu-ashen.vercel.app" // Live frontend deployment
+  ],
   credentials: true
 }));
 
